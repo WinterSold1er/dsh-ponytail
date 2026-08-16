@@ -1,5 +1,13 @@
 # dsh-ponytail
 
+[![npm version](https://img.shields.io/npm/v/dsh-ponytail-skills)](https://www.npmjs.com/package/dsh-ponytail-skills)
+[![GitHub release](https://img.shields.io/github/v/release/gongyijie85/dsh-ponytail)](https://github.com/gongyijie85/dsh-ponytail/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+> **English:** Ponytail, the lazy senior dev mode, for DeepSeek Harness — 6 skills
+> (ponytail, ponytail-audit, ponytail-debt, ponytail-gain, ponytail-help,
+> ponytail-review) adapted from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (MIT).
+
 把 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)(~76k⭐ 的
 "最懒资深工程师"代码风格)移植到 **DeepSeek Harness (DSH)** 的 Cordis 插件架构。
 
@@ -7,6 +15,12 @@
 (`skills/<name>/SKILL.md`),无需任何用户配置。
 
 > **非官方移植**:技能内容改编自 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)(MIT, © DietrichGebert)。
+
+## 快速上手
+
+装好后对 agent 说 **"用 ponytail 模式写这段代码"**,或让模型在编码时自动
+采用:YAGNI → 复用现有代码 → 标准库 → 原生平台能力 → 一行 → 最小代码。
+支持 `lite` / `full`(默认)/ `ultra` 三档强度,`"stop ponytail"` 退出。
 
 ## 技能列表
 
@@ -33,6 +47,14 @@ dsh plugin --profile web add D:\plugins\dsh-ponytail
 ```
 
 装完重启 profile(`dsh web`),技能即可用 `skill` 工具加载。
+
+## 工作原理
+
+- **Bundle 层** —— `cordis.patch.yml` 在 dsh-base 层插入插件行,后续层可按 id 定位。
+- **提供者** —— `lib/index.js` 调用 `ctx.skills.registerProvider(...)`:扫描
+  `skills/` 目录,从 YAML frontmatter 解析 `name`/`description` 并返回完整技能
+  定义,`resourceBase` 指向技能目录。
+- **零运行时依赖** —— 只使用 Node 内置模块。
 
 ## 移植说明(对比上游)
 
