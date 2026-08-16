@@ -22,8 +22,13 @@
 ## 安装
 
 ```sh
+# npm(包名 dsh-ponytail 已被同名项目占用,本包发布为 dsh-ponytail-skills)
+dsh plugin --profile web add dsh-ponytail-skills
+
+# GitHub
 dsh plugin --profile web add github:gongyijie85/dsh-ponytail
-# 或本地开发
+
+# 本地开发
 dsh plugin --profile web add D:\plugins\dsh-ponytail
 ```
 

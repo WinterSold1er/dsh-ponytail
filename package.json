@@ -1,5 +1,5 @@
 {
-  "name": "dsh-ponytail",
+  "name": "dsh-ponytail-skills",
   "description": "Ponytail, lazy senior dev mode, for DeepSeek Harness: 6 skills (ponytail, ponytail-audit, ponytail-debt, ponytail-gain, ponytail-help, ponytail-review) adapted from DietrichGebert/ponytail (MIT)",
   "version": "0.1.0",
   "private": false,
@@ -17,6 +17,18 @@
     "LICENSE"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gongyijie85/dsh-ponytail.git"
+  },
+  "homepage": "https://github.com/gongyijie85/dsh-ponytail",
+  "bugs": {
+    "url": "https://github.com/gongyijie85/dsh-ponytail/issues"
+  },
+  "scripts": {
+    "verify": "node scripts/verify-provider.mjs",
+    "prepublishOnly": "node scripts/verify-provider.mjs"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",
