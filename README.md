@@ -4,9 +4,11 @@
 [![GitHub release](https://img.shields.io/github/v/release/gongyijie85/dsh-ponytail)](https://github.com/gongyijie85/dsh-ponytail/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> **English:** Ponytail, the lazy senior dev mode, for DeepSeek Harness — 6 skills
-> (ponytail, ponytail-audit, ponytail-debt, ponytail-gain, ponytail-help,
-> ponytail-review) adapted from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (MIT).
+<div align="center">
+
+[English](README.en.md) | **简体中文**
+
+</div>
 
 把 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)(~76k⭐ 的
 "最懒资深工程师"代码风格)移植到 **DeepSeek Harness (DSH)** 的 Cordis 插件架构。
