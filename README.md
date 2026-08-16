@@ -1,0 +1,43 @@
+# dsh-ponytail
+
+把 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)(~76k⭐ 的
+"最懒资深工程师"代码风格)移植到 **DeepSeek Harness (DSH)** 的 Cordis 插件架构。
+
+插件向 `ctx.skills` 注册表的 **host 层** 注册技能提供者,6 个技能随包分发
+(`skills/<name>/SKILL.md`),无需任何用户配置。
+
+> **非官方移植**:技能内容改编自 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)(MIT, © DietrichGebert)。
+
+## 技能列表
+
+| 技能 | 用途 |
+| --- | --- |
+| `ponytail` | 核心模式:强制"最懒但能用的方案",YAGNI → stdlib → 原生 → 一行 → 最小代码。支持 lite / full(默认)/ ultra 三档 |
+| `ponytail-review` | 只针对过度工程的代码评审:每行一个发现(位置、删什么、用什么替代) |
+| `ponytail-audit` | 全仓库过度工程审计(ponytail-review 的仓库版):排序输出"最大削减优先" |
+| `ponytail-debt` | 把代码里所有 `ponytail:` 注释收进债务台账,延迟不烂尾 |
+| `ponytail-gain` | 展示 ponytail 的实测收益记分牌(基准中位数) |
+| `ponytail-help` | 全部模式/技能/命令的速查卡 |
+
+## 安装
+
+```sh
+dsh plugin --profile web add github:gongyijie85/dsh-ponytail
+# 或本地开发
+dsh plugin --profile web add D:\plugins\dsh-ponytail
+```
+
+装完重启 profile(`dsh web`),技能即可用 `skill` 工具加载。
+
+## 移植说明(对比上游)
+
+- **描述展平**:上游 6 个技能的 `description: >` 折叠多行 frontmatter 均展平为
+  单行——DSH 技能发现解析器只读标量值。
+- 正文零改动(纯提示词,无 harness 专属引用);`argument-hint`、`license`
+  等元数据原样透传。
+- 调用语义:全部模型/用户可调用(上游未设 `disable-model-invocation`)。
+
+## 许可证
+
+MIT。技能内容 © DietrichGebert([ponytail](https://github.com/DietrichGebert/ponytail));
+DSH 移植 © gongyijie85。见 [LICENSE](LICENSE)。
