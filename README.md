@@ -61,10 +61,10 @@ dsh plugin --profile web add D:\plugins\dsh-ponytail
 
 ## 移植说明(对比上游)
 
-- **描述展平**:上游 6 个技能的 `description: >` 折叠多行 frontmatter 均展平为
-  单行——DSH 技能发现解析器只读标量值。
-- 正文零改动(纯提示词,无 harness 专属引用);`argument-hint`、`license`
-  等元数据原样透传。
+- **技能文件与上游完全一致(verbatim)**:包括 `description: >` 折叠多行
+  frontmatter——提供者(`lib/index.js`)原生解析折叠标量(按 YAML 语义以
+  单空格连接),无需任何改写。
+- `argument-hint`、`license` 等元数据原样透传。
 - 调用语义:全部模型/用户可调用(上游未设 `disable-model-invocation`)。
 
 ## 许可证

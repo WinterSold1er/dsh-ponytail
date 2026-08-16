@@ -26,8 +26,8 @@ for skill_dir in "$TMP/upstream/skills"/*/; do
   echo "synced $name"
 done
 
-# DSH adaptation: fold `description: >` multi-line frontmatter into one line.
-node "$ROOT/scripts/flatten-frontmatter.mjs" "$ROOT/skills"
+# Skill files ship verbatim: the provider parses folded `description: >`
+# frontmatter natively, so no adaptation step is needed.
 
 echo ""
 echo "Done. Follow-up: npm run verify"
