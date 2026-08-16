@@ -1,3 +1,9 @@
+## [0.1.3] - 2026-08-17
+
+### Fixed
+
+- cordis.patch.yml 的 name 从旧名 dsh-ponytail 改为 dsh-ponytail-skills(与 package.json 一致)——此前发布的 0.1.2 安装后会因加载器找不到包而崩溃。
+
 # Changelog
 
 ## [0.1.1] - 2026-08-16
