@@ -25,6 +25,28 @@
 采用:YAGNI → 复用现有代码 → 标准库 → 原生平台能力 → 一行 → 最小代码。
 支持 `lite` / `full`(默认)/ `ultra` 三档强度,`"stop ponytail"` 退出。
 
+模式可以像 caveman 一样按会话切换:
+
+```sh
+/ponytail full     # 开启(在本会话每一轮的 system prompt 注入 ponytail 规则)
+/ponytail lite     # 轻档
+/ponytail ultra    # 超档
+/ponytail off      # 关闭(默认;普通编码风格恢复)
+```
+
+默认 `off`,不劫持每个回复。开启后 `[PONYTAIL]`(或 `[PONYTAIL:ULTRA]`)会
+像一个系统指令那样注入提示词,ponytail 规则确定性生效——不再只靠模型
+自觉去加载 `skill ponytail`。
+
+## 与上游 / 原 dsh-ponytail 的差异
+
+- **激活外壳(本 fork 新增)**:镜像 `dsh-caveman`——`sessionProjections` 单元
+  (`ponytail/change` 事件)+ `/ponytail` 命令 + `systemPrompt.section` 注入。
+  原来 ponytail 只是被动 skill,内容只有模型显式调用 `skill ponytail` 才进提示词,
+  导致看起来"从不触发"。本 fork 通过确定性注入补齐。
+- **零运行时依赖**:用内联 validator 替换 `zod`(原包本就宣称零依赖)。
+- 技能内容与上游完全一致(verbatim)。
+
 ## 技能列表
 
 | 技能 | 用途 |
