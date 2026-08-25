@@ -45,6 +45,11 @@
     "over-engineering",
     "code-quality"
   ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
   "peerDependencies": {
     "@deepseek-ai/cordis": "*"
   }
