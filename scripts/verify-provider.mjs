@@ -1,5 +1,11 @@
 // verify-provider.mjs — functional smoke test for the dsh-ponytail skill
 // provider, without booting a DSH profile.
+//
+// The lib imports @deepseek-ai/dsh-session (host-provided), so this script
+// must run where that bare module resolves — inside the DSH repo workspace
+// or any install with the harness runtime. The mock ctx mirrors the host
+// service surface the activation shell borrows (optional ctx.get lookups and
+// agent/pre-step listeners), so apply() exercises the full plugin body.
 import { apply } from '../lib/index.js'
 
 let captured
@@ -8,6 +14,14 @@ const ctx = {
     registerProvider(providerFactory) {
       captured = providerFactory({})
     }
+  },
+  get(key) {
+    // Host services (sessionProjections, commands, systemPrompt) are absent
+    // here; the activation shell treats each as optional.
+    return undefined
+  },
+  on() {
+    // agent/pre-step listener registration is a no-op outside a host loop.
   }
 }
 
