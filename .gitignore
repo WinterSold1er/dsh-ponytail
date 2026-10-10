@@ -2,3 +2,10 @@ node_modules/
 *.tgz
 .DS_Store
 Thumbs.db
+.claude/
+.codex/
+.cursor/
+.vscode/
+.mcp.json
+.vectrignore
+CLAUDE.md

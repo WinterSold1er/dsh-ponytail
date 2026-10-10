@@ -25,26 +25,32 @@
 采用:YAGNI → 复用现有代码 → 标准库 → 原生平台能力 → 一行 → 最小代码。
 支持 `lite` / `full`(默认)/ `ultra` 三档强度,`"stop ponytail"` 退出。
 
-模式可以像 caveman 一样按会话切换:
+### 1. Web 设置中心可视化配置（双面插件模式）
+打开 DSH 设置中心，左侧导航栏拥有专属**马尾辫图标**的 `ponytail` 管理面板：
+- **卡片头部专属图标**：Hero 卡片开头展示独立马尾辫 SVG 图标与运行状态标记（`● 已开启` / `○ 已关闭`）。
+- **一键总控开关**：实时切换开启/关闭，修改持久化至 `~/.dsh-ponytail/state.json`。
+- **档位即时切换**：可视化选择 `lite`（轻量备选）、`full`（推荐主力）、`ultra`（极限 YAGNI）。
+- **极简原则速查**：面板集成 7 阶阶梯法则看板与斜杠命令指南。
+
+### 2. 对话斜杠命令
+可在任意会话中通过命令进行控制：
 
 ```sh
-/ponytail full     # 开启(在本会话每一轮的 system prompt 注入 ponytail 规则)
-/ponytail lite     # 轻档
-/ponytail ultra    # 超档
-/ponytail off      # 关闭(默认;普通编码风格恢复)
+/ponytail on       # 开启极简开发模式
+/ponytail off      # 关闭极简开发模式
+/ponytail level full # 切换档位 (lite / full / ultra)
+/ponytail status   # 查看当前状态与档位
+# 亦支持快捷命令：/ponytail-on、/ponytail-off、/ponytail-level <mode>、/ponytail-status
 ```
 
-默认 `off`,不劫持每个回复。开启后 `[PONYTAIL]`(或 `[PONYTAIL:ULTRA]`)会
-像一个系统指令那样注入提示词,ponytail 规则确定性生效——不再只靠模型
-自觉去加载 `skill ponytail`。
+开启后，系统提示词将自动注入强约束规则，要求模型遇到任何编程/审查任务时主动调用 `skill ponytail`，严格遵守阶梯法则。
 
 ## 与上游 / 原 dsh-ponytail 的差异
 
-- **激活外壳(本 fork 新增)**:镜像 `dsh-caveman`——`sessionProjections` 单元
-  (`ponytail/change` 事件)+ `/ponytail` 命令 + `systemPrompt.section` 注入。
-  原来 ponytail 只是被动 skill,内容只有模型显式调用 `skill ponytail` 才进提示词,
-  导致看起来"从不触发"。本 fork 通过确定性注入补齐。
-- **零运行时依赖**:用内联 validator 替换 `zod`(原包本就宣称零依赖)。
+- **双面插件体系与设置页支持**: 完整移植 `dsh-caveman` 的 Host+Browser 双面架构，通过专属 HTTP API 数据面（`/ponytail/status` 与 `/ponytail/state`）和 `slots.register('settings.section')` 提供完整的 Web 设置中心配置面板。
+- **独立专属 SVG 图标**: 包含定制的马尾辫矢量图，通过 CSS Mask 与 MutationObserver 替换导航栏齿轮图标，并在设置页开头作为 Hero 标志渲染。
+- **主动式提示词注入**: 彻底解决被动 skill 模型不主动触发的痛点。注入强指令与阶梯法则，确保在 `gemini-3.8-flash` 等模型下会话 100% 主动调用 `skill ponytail`。
+- **零外部运行时依赖**: 宿主与浏览器端均为纯原生实现，无额外依赖。
 - 技能内容与上游完全一致(verbatim)。
 
 ## 技能列表

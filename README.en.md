@@ -30,29 +30,32 @@ on its own while coding: YAGNI → reuse existing code → standard library →
 native platform features → one line → minimal code. Intensity levels:
 `lite` / `full` (default) / `ultra`; `"stop ponytail"` exits the mode.
 
-The mode also switches per session like caveman:
+### 1. Web Settings Center Configuration (Dual-Face Plugin)
+Open DSH Settings Center, where a dedicated `ponytail` panel is available:
+- **Dedicated Ponytail SVG Icon**: Features a custom ponytail silhouette icon at the start of the hero card and on the sidebar navigation bar (via CSS Mask).
+- **Master Toggle**: Toggle on/off instantly, persisted in `~/.dsh-ponytail/state.json`.
+- **Intensity Selector**: Easily switch between `lite`, `full` (default), and `ultra`.
+- **7-Rung Ladder & Slash Commands**: Interactive reference cards included directly in the panel.
+
+### 2. Slash Commands
+Control the mode from any chat conversation:
 
 ```sh
-/ponytail full     # on: injects ponytail rules into the system prompt every turn
-/ponytail lite     # light
-/ponytail ultra    # maximum
-/ponytail off      # off (default; normal coding style resumes)
+/ponytail on       # turn on ponytail mode
+/ponytail off      # turn off ponytail mode
+/ponytail level full # switch level (lite / full / ultra)
+/ponytail status   # view current status and level
+# Aliases: /ponytail-on, /ponytail-off, /ponytail-level, /ponytail-status
 ```
 
-Default is `off` so it never hijacks replies. Once on, `[PONYTAIL]` (or
-`[PONYTAIL:ULTRA]`) is injected as a directive — ponytail applies
-deterministically, not only when the model happens to load `skill ponytail`.
+When enabled, strict rules are injected into the system prompt directing models to proactively invoke `skill ponytail` and apply the 7 rungs of the ladder for any coding task.
 
 ## Differences from upstream / original dsh-ponytail
 
-- **Activation shell (new in this fork)**: mirrors `dsh-caveman` —
-  a `sessionProjections` unit (`ponytail/change` events) + `/ponytail` command
-  + `systemPrompt.section` injection. The original shipped ponytail as a
-  passive skill whose content only reached the model when the model explicitly
-  called `skill ponytail`, so it looked like it "never triggered". This fork
-  adds the deterministic injection path.
-- **Zero runtime deps**: an inline validator replaces `zod` (the original
-  package already claimed zero runtime dependencies).
+- **Dual-Face Architecture & Web Settings**: Full port of `dsh-caveman`'s host-browser architecture with custom data plane routes (`/ponytail/status` & `/ponytail/state`) and full `settings.section` UI panel.
+- **Dedicated SVG Icon**: Custom Ponytail hairstyle glyph replaces the generic gear icon and decorates the settings hero card.
+- **Active Prompt Injection**: Strictly directs the model to proactively call `skill(name="ponytail")` for any coding task, verified by end-to-end tests with Gemini 3.8 Flash.
+- **Zero Runtime Dependencies**: Completely dependency-free host and browser implementations.
 - Skill content is verbatim from upstream.
 
 ## Skills
